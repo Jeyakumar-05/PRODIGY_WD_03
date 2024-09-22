@@ -2,7 +2,6 @@
 If u choose to play against the computer, the 'Computer Player' will use the getBestMove function to choose one of the best possible moves.
 */
 
-// -- Constants --
 const SYMBOLS = {
   x:'X',
   o:'O'
@@ -23,7 +22,6 @@ const VIEW = {
 function Board (options){
   // Creates the board Object for the game
 
-  // -- Data Stracture --
   state = {
     view: VIEW.question1,
     players: [
@@ -47,12 +45,12 @@ function Board (options){
         ["", "", ""],
         ["", "", ""]
       ],
-      turn: Math.round(Math.random()), //we set this var randomly for the first move.
+      turn: Math.round(Math.random()),
     }
   }
 
   function moveCount(board){
-    //receives a board and returns the number of moves that have been played.
+  
     let moveCount = 0
     for (let i = 0; i<board.length; i++){
       for (let j = 0 ; j<board[i].length ; j++){
@@ -65,7 +63,6 @@ function Board (options){
   }
 
   function getResult(board,symbol){
-      // receives a board, and the symbol of the player and returns an object with the result and an array of the winning line
       let result = RESULT.incomplete
       if (moveCount(board)<5){
          return {result}
@@ -78,7 +75,6 @@ function Board (options){
       let line
       let winningLine=[]
 
-      //first we check row, then column, then diagonal
       for (var i = 0 ; i<3 ; i++){
         line = board[i].join('')
         if(succession(line)){
@@ -222,10 +218,6 @@ function Board (options){
     function htmlGame (){
       const moveNumber = moveCount(state.game._gameBoard) + 1
       const playerName = state.game.turn === 0 ? 'Player1' : state.players[1].isComputer ? 'Computer' : 'Player2'
-    //   let playerName = 'Computer'
-    //   if(!state.players[state.game.turn].isComputer)
-    //     playerName = state.game.turn === 0 ? 'Player1' : 'Player2'
-
       let htmlBefore = `<h3>move: ${moveNumber} ${htmlSpaces(5)} turn: ${playerName}</h3>`
       let board = state.game._gameBoard.reduce(function(acc,curr,rowIndex){
           return acc + `<div id= "row${rowIndex}" class="row">${curr.map((str,colIndex)=>`<div class="cell col${colIndex}" data-row=${rowIndex} data-column=${colIndex}>${str}</div>`).join('')}</div>`
@@ -267,7 +259,6 @@ function Board (options){
     else if (state.view == VIEW.question2) {html = htmlQ2()}
     else if (state.view == VIEW.result) {html=htmlGameEnd()}
     else {html=htmlGame()}
-    // console.log(html)
     options.el.innerHTML = html
   }
 
